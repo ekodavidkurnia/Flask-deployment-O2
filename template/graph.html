@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O2 Content Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+</head>
+<body>
+    <nav>
+        <div class="wrapper">
+            <div class="logo"><a href=''>Boiler O<sub>2</sub> Predictor</a></div>
+            <div class="menu">
+                <ul>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/result">Result</a></li>
+                    <li><a href="/prediction">Prediction</a></li>
+                    <li><a href="/graph">Graph</a></li>
+                    <li><a href="/" class="tbl-biru">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="wrapper">
+        <!-- untuk home -->
+        <section id="home">
+            <img src= "{{ url_for('static', filename= "images/diagram boiler.PNG")}}" />
+            <div class="kolom">
+                <p class="deskripsi">Pentingnya pengukuran kandungan oksigen</p>
+                <h2>Permasalahan pada boiler</h2>
+                <p>Ketika kandungan oksigen di dalam flue gas <b>berlebih</b> dari batas optimal, maka akan menyebabkan temperatur pembakaran menurun, sehingga meningkatkan heat loss terbawa menuju atmosfer.</p>
+                <p>Sebaliknya, ketika kandungan oksigen dalam flue gas lebih <b>sedikit</b> dari batas optimal akan mengurangi efisiensi pembakaran karena terdapat komponen bahan bakar yang tidak terbakar dan kemudian membahayakan keamanan operasi.</p>
+            </div>
+        </section>
+
+        <!-- untuk Overview -->
+        <section id="Overview">
+            <div class="kolom">
+                <p class="deskripsi"></p>
+                <h2>Predictive Maintenance</h2>
+                <p>Dalam beberapa tahun terakhir, industri telah meningkatkan perhatian pada pendekatan predictive maintenance menggunakan artificial intelligence dan machine learning karena kapasitas dan kemampuannya dalam pembuatan model yang otomatis untuk menangani sejumlah besar data.</p>
+                <p>Hasil evaluasi model dari beberapa metode machine learning pada data parameter Boiler PT. Pertamina RU V Balikpapan menunjukkan bahwa accuracy dan error yang diperoleh dapat digunakan untuk memprediksi nilai kandungan oksigen pada boiler dengan Xtreme Gradien Boosting Regressor Hyperparameter tuning RandomizeCV memberikan hasil yang paling bagus.</p>
+            </div>
+            <img src="{{ url_for('static', filename= "images/overview.PNG")}}"/>
+        </section>
+
+        <!-- untuk XGBoost model -->
+        <section id="XGBoost">
+            <div class="tengah">
+                <div class="kolom">
+                    <p class="deskripsi"></p>
+                    <h2>XGBoost Model Review</h2>
+                    <p>Scalable machine learning system untuk tree boosting. Setelah hyperparameter tunning didapatkan model dengan residual data yang lebih terdistribusi normal.</p>
+                </div>
+
+                <div class="tutor-list">
+                    <div class="kartu-tutor">
+                        <img src= "{{ url_for('static', filename= "images/feature important.PNG")}}"/>
+                        <p>Feature Penting Boiler</p>
+                    </div>
+                    <div class="kartu-tutor">
+                        <img src= "{{ url_for('static', filename= "images/XGBoost.PNG")}}"/>
+                        <p>Error XGBoost</p>
+                    </div>
+                    <div class="kartu-tutor">
+                        <img src= "{{ url_for('static', filename= "images/Hyperparameter.PNG")}}"/>
+                        <p>Error Setelah Hyperparameter</p>
+                    </div>                    
+                </div>
+            </div>
+        </section>
+
+        <!-- untuk prediction -->
+        <section id="Predict">
+            <div class="tengah">
+                <div class="kolom">
+                    <p class="deskripsi"></p>
+                    <h2>Predictive Analisis</h2>
+                </div>
+
+                <form action="{{ url_for('predict')}}" method="post">
+                    <div class="partner-list">
+                        <div class="kartu-partner">
+                            <p>Deaerator6 Level</p>
+                            <input class="kotak" type="text" name="Deaerator6Level" placeholder="60.94 - 86.67" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Bfw Flow To Superheater</p>
+                            <input class="kotak" type="text" name="BfwFlowToSuperheater" placeholder="-385.96 - 4536.62" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Steam Desuperheater</p>
+                            <input class="kotak" type="text" name="SteamDesuperheaterCont" placeholder="374.8 - 394.19" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Boiler Feed Water</p>
+                            <input class="kotak" type="text" name="BoilerFeedWater" placeholder="43441.4 - 89491.49" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Main Gas Inlet To Furnace</p>
+                            <input class="kotak" type="text" name="MainGasInletToFurnace" placeholder="2804.26 - 6293.09" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Fuel Gas Behind Cv</p>
+                            <input class="kotak" type="text" name="FuelGasBehindCv" placeholder="0.087 - 0.275" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Combustion Air Flow</p>
+                            <input class="kotak" type="text" name="CombustionAirFlow" placeholder="86255.46 - 111161.98" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Air Burner Box</p>
+                            <input class="kotak" type="text" name="AirBurnerBox" placeholder="165.14 - 313.06" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Main Steam Temperature</p>
+                            <input class="kotak" type="text" name="MainSteamTemperature" placeholder="455.67 - 473.46" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Flue Gas Furnace</p>
+                            <input class="kotak" type="text" name="FlueGasFurnace" placeholder="87.74 - 192.53" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Boiler6 Flue Gas Outlet</p>
+                            <input class="kotak" type="text" name="Boiler6FlueGasOutlet" placeholder="363.84 - 397.69" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Steam Boiler</p>
+                            <input class="kotak" type="text" name="SteamBoiler" placeholder="59.34 - 60.82" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Wind Box Pressure</p>
+                            <input class="kotak" type="text" name="WindBoxPressure" placeholder="139.14 - 260.95" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Combustion Air</p>
+                            <input class="kotak" type="text" name="CombustionAir" placeholder="32.11 - 46.9" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Boiler6 Steam Drum</p>
+                            <input class="kotak" type="text" name="Boiler6SteamDrum" placeholder="34.84 - 35.2" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Main Steam Header</p>
+                            <input class="kotak" type="text" name="MainSteamHeader" placeholder="40729.82 - 91346.31" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Economizer Water Inlet</p>
+                            <input class="kotak" type="text" name="EconomizerWaterInlet" placeholder="124.5 - 138.09" required="required "/>
+                        </div>
+                        <div class="kartu-partner">
+                            <p>Economizer Water Outlet</p>
+                            <input class="kotak" type="text" name="EconomizerWaterOutlet" placeholder="203.5 - 237.69" required="required "/>
+                        </div>
+                    </div>
+                </form>
+                <div class="kolom">
+                    <button id="sub" class="tbl-pink" type="submit ">Predict</button>
+                    <div class="kartu-tutor">
+                        <p>{{ prediction_text }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="contact">
+        <div class="wrapper">
+            <div class="footer">
+                <div class="footer-section">
+                    <h3>Tentang</h3>
+                    <p><b>Penelitian Tugas Akhir: </b> <br> Soft Sensor berbasis Xtreme Gradien Boosting untuk prediksi nilai kandungan oksigen dalam flue gas pada boiler PT Pertamina RU V Balikpapan. </p>
+                </div>
+                <div class="footer-section">
+                    <h3>Pembimbing</h3>
+                    <p><b>Pembimbing 1 :</b> <br> Ir. Nazrul Effendy, S. T., M. Eng., Ph.D., IPM</p>
+                    <p><b>Pembimbing 2 :</b> <br> Ir. Agus Arif, M.T.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Alamat</h3>
+                    <p><b>Departemen Teknik Nuklir & Teknik Fisika</b><br>
+                    Fakultas Teknik, Universitas Gadjah Mada<br>
+                    Jl. Grafika 2, Yogyakarta 55281, Indonesia<br>
+                    Phone/Fax: +62-274-580882<br>
+                    Email: dtntf.ft@ugm.ac.id</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Social</h3>
+                    <p><b>LinkedIn: </b> <br> www.linkedin.com/in/eko-david-kurniawan </p>
+                    <p><b>Github: </b> <br> ekodavidkurnia</p>
+                    <p>ekodavidkurnia@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="copyright">
+        <div class="wrapper">
+            &copy; 2021. <b>Eko David Kurniawan</b>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
