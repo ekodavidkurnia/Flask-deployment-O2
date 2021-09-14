@@ -5,140 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O2 Content Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     
 </head>
 <body>
-    <nav>
-        <div class="wrapper">
-            <div class="logo"><a href=''>Boiler O<sub>2</sub> Predictor</a></div>
-            <div class="menu">
-                <ul>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/result">Result</a></li>
-                    <li><a href="/prediction">Prediction</a></li>
-                    <li><a href="/graph">Graph</a></li>
-                    <li><a href="/" class="tbl-biru">Home</a></li>
-                </ul>
+    <nav class="navbar">
+        <div class="content">
+          <div class="logo">
+            <a href="#">Boiler O<sub>2</sub> Predictor</a>
+          </div>
+          <ul class="menu-list">
+            <div class="icon cancel-btn">
+              <i class="fas fa-times"></i>
             </div>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/result">Result</a></li>
+            <li><a href="/prediction">Prediction</a></li>
+            <li><a href="/graph">Dataset</a></li>
+          </ul>
+          <div class="icon menu-btn">
+            <i class="fas fa-bars"></i>
+          </div>
         </div>
     </nav>
 
+    <script>
+        const body = document.querySelector("body");
+        const navbar = document.querySelector(".navbar");
+        const menuBtn = document.querySelector(".menu-btn");
+        const cancelBtn = document.querySelector(".cancel-btn");
+        menuBtn.onclick = ()=>{
+          navbar.classList.add("show");
+          menuBtn.classList.add("hide");
+          body.classList.add("disabled");
+        }
+        cancelBtn.onclick = ()=>{
+          body.classList.remove("disabled");
+          navbar.classList.remove("show");
+          menuBtn.classList.remove("hide");
+        }
+        window.onscroll = ()=>{
+          this.scrollY > 20 ? navbar.classList.add("sticky") : navbar.classList.remove("sticky");
+        }
+    </script>
 
-        <!-- untuk prediction -->
-        <section id="Predict">
-            <div class="tengah">
-                <div class="kolom">
-                    <p class="deskripsi"></p>
-                    <h2>Predictive Analisis</h2>
-                </div>
-
-                <form action="{{ url_for('predict')}}" method="post">
-                    <div class="partner-list">
-                        <div class="kartu-partner">
-                            <p>Bfw Flow To Superheater</p>
-                            <input class="kotak" type="text" name="BfwFlowToSuperheater" placeholder="-385.96 - 4536.62" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Steam Desuperheater</p>
-                            <input class="kotak" type="text" name="SteamDesuperheaterCont" placeholder="374.8 - 394.19" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Boiler Feed Water</p>
-                            <input class="kotak" type="text" name="BoilerFeedWater" placeholder="43441.4 - 89491.49" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Main Gas Inlet To Furnace</p>
-                            <input class="kotak" type="text" name="MainGasInletToFurnace" placeholder="2804.26 - 6293.09" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Fuel Gas Behind Cv</p>
-                            <input class="kotak" type="text" name="FuelGasBehindCv" placeholder="0.087 - 0.275" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Combustion Air Flow</p>
-                            <input class="kotak" type="text" name="CombustionAirFlow" placeholder="86255.46 - 111161.98" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Air Burner Box</p>
-                            <input class="kotak" type="text" name="AirBurnerBox" placeholder="165.14 - 313.06" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Main Steam Temperature</p>
-                            <input class="kotak" type="text" name="MainSteamTemperature" placeholder="455.67 - 473.46" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Boiler6 Flue Gas Outlet</p>
-                            <input class="kotak" type="text" name="Boiler6FlueGasOutlet" placeholder="363.84 - 397.69" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Steam Boiler</p>
-                            <input class="kotak" type="text" name="SteamBoiler" placeholder="59.34 - 60.82" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Combustion Air</p>
-                            <input class="kotak" type="text" name="CombustionAir" placeholder="32.11 - 46.9" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Main Steam Header</p>
-                            <input class="kotak" type="text" name="MainSteamHeader" placeholder="40729.82 - 91346.31" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Economizer Water Inlet</p>
-                            <input class="kotak" type="text" name="EconomizerWaterInlet" placeholder="124.5 - 138.09" required="required "/>
-                        </div>
-                        <div class="kartu-partner">
-                            <p>Economizer Water Outlet</p>
-                            <input class="kotak" type="text" name="EconomizerWaterOutlet" placeholder="203.5 - 237.69" required="required "/>
-                        </div>
-                    </div>
-                
+    <div class="about">
+        <div class="content"> 
+            <div class="title">Prediction</div>
+            <!-- untuk prediction -->
+            <section id="Predict">
+                <div class="tengah">
                     <div class="kolom">
-                        <button id="sub" class="tbl-pink" type="submit ">Predict</button>
-                    
+                        <p class="deskripsi"></p>
+                        <h2>Predictive Analisis</h2>
                     </div>
-                </form>
-                <div class="kartu-tutor">
-                    <p>{{ prediction_text }}</p>
-                </div>
-            </div>
-        </section>
-    </div>
 
-    <div id="contact">
-        <div class="wrapper">
-            <div class="footer">
-                <div class="footer-section">
-                    <h3>Tentang</h3>
-                    <p><b>Penelitian Tugas Akhir: </b> <br> Soft Sensor berbasis Xtreme Gradien Boosting untuk prediksi nilai kandungan oksigen dalam flue gas pada boiler PT Pertamina RU V Balikpapan. </p>
+                    <form action="{{ url_for('predict')}}" method="post">
+                        <div class="partner-list">
+                            <div class="kartu-partner">
+                                <p>Bfw Flow To Superheater</p>
+                                <input class="kotak" type="text" name="BfwFlowToSuperheater" placeholder="-385.96 - 4536.62" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Steam Desuperheater</p>
+                                <input class="kotak" type="text" name="SteamDesuperheaterCont" placeholder="374.8 - 394.19" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Boiler Feed Water</p>
+                                <input class="kotak" type="text" name="BoilerFeedWater" placeholder="43441.4 - 89491.49" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Main Gas Inlet To Furnace</p>
+                                <input class="kotak" type="text" name="MainGasInletToFurnace" placeholder="2804.26 - 6293.09" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Fuel Gas Behind Cv</p>
+                                <input class="kotak" type="text" name="FuelGasBehindCv" placeholder="0.087 - 0.275" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Combustion Air Flow</p>
+                                <input class="kotak" type="text" name="CombustionAirFlow" placeholder="86255.46 - 111161.98" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Air Burner Box</p>
+                                <input class="kotak" type="text" name="AirBurnerBox" placeholder="165.14 - 313.06" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Main Steam Temperature</p>
+                                <input class="kotak" type="text" name="MainSteamTemperature" placeholder="455.67 - 473.46" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Boiler6 Flue Gas Outlet</p>
+                                <input class="kotak" type="text" name="Boiler6FlueGasOutlet" placeholder="363.84 - 397.69" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Steam Boiler</p>
+                                <input class="kotak" type="text" name="SteamBoiler" placeholder="59.34 - 60.82" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Combustion Air</p>
+                                <input class="kotak" type="text" name="CombustionAir" placeholder="32.11 - 46.9" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Main Steam Header</p>
+                                <input class="kotak" type="text" name="MainSteamHeader" placeholder="40729.82 - 91346.31" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Economizer Water Inlet</p>
+                                <input class="kotak" type="text" name="EconomizerWaterInlet" placeholder="124.5 - 138.09" required="required "/>
+                            </div>
+                            <div class="kartu-partner">
+                                <p>Economizer Water Outlet</p>
+                                <input class="kotak" type="text" name="EconomizerWaterOutlet" placeholder="203.5 - 237.69" required="required "/>
+                            </div>
+                        </div>
+                    
+                        <div class="kolom">
+                            <button id="sub" class="tbl-pink" type="submit ">Predict</button>
+                        
+                        </div>
+                    </form>
+                    <div class="kartu-tutor">
+                        <p>{{ prediction_text }}</p>
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h3>Pembimbing</h3>
-                    <p><b>Pembimbing 1 :</b> <br> Ir. Nazrul Effendy, S. T., M. Eng., Ph.D., IPM</p>
-                    <p><b>Pembimbing 2 :</b> <br> Ir. Agus Arif, M.T.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Alamat</h3>
-                    <p><b>Departemen Teknik Nuklir & Teknik Fisika</b><br>
-                    Fakultas Teknik, Universitas Gadjah Mada<br>
-                    Jl. Grafika 2, Yogyakarta 55281, Indonesia<br>
-                    Phone/Fax: +62-274-580882<br>
-                    Email: dtntf.ft@ugm.ac.id</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Social</h3>
-                    <p><b>LinkedIn: </b> <br> www.linkedin.com/in/eko-david-kurniawan </p>
-                    <p><b>Github: </b> <br> ekodavidkurnia</p>
-                    <p>ekodavidkurnia@gmail.com</p>
-                </div>
-            </div>
+            </section>
         </div>
     </div>
 
-    <div id="copyright">
-        <div class="wrapper">
-            &copy; 2021. <b>Eko David Kurniawan</b>
-        </div>
-    </div>
+        <footer>
+            <div class="main-content">
+              <div class="left box">
+                <h2>Tentang</h2>
+                <div class="content">
+                  <p><b>Penelitian Tugas Akhir: </b> <br> Soft Sensor berbasis Xtreme Gradien Boosting untuk prediksi nilai kandungan oksigen dalam flue gas pada boiler PT Pertamina RU V Balikpapan. </p>
+                  <div class="social">
+                    <a href="https://www.linkedin.com/in/eko-david-kurniawan"><span class="fab fa-linkedin"></span></a>
+                    <a href="https://github.com/ekodavidkurnia"><span class="fab fa-github-square"></span></a>
+                    <a href="https://www.instagram.com/edavidkurnia/"><span class="fab fa-instagram"></span></a>
+                    <a href="#"><span class="fab fa-youtube"></span></a>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="center box">
+                <h2>Alamat</h2>
+                <div class="content">
+                  <div class="place">
+                    <span class="fas fa-map-marker-alt"></span>
+                    <span class="text"><b>Departemen Teknik Nuklir & Teknik Fisika</b><br>
+                      Fakultas Teknik, Universitas Gadjah Mada<br>
+                      Jl. Grafika 2, Yogyakarta 55281, Indonesia</span>
+                  </div>
+                  <div class="phone">
+                    <span class="fas fa-phone-alt"></span>
+                    <span class="text">+62-274-580882</span>
+                  </div>
+                  <div class="email">
+                    <span class="fas fa-envelope"></span>
+                    <span class="text">dtntf.ft@ugm.ac.id</span>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="right box">
+                <h2>Pembimbing</h2>
+                <div class="content">
+                  <div class="place">
+                    <span class="text"><b>Pembimbing 1 :</b> <br> Ir. Nazrul Effendy, S. T., M. Eng., Ph.D., IPM</span>
+                  </div>
+                  <div class="phone">
+                    <span class="text"><b>Pembimbing 2 :</b> <br> Ir. Agus Arif, M.T.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bottom">
+              <center>
+                <span class="credit">Created By <a href="www.linkedin.com/in/eko-david-kurniawan">Eko David Kurniawan</a> | </span>
+                <span class="far fa-copyright"></span><span> 2021 All rights reserved.</span>
+              </center>
+            </div>
+        </footer>
     
     
 </body>

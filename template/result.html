@@ -5,50 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O2 Content Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     
 </head>
 <body>
-    <nav>
-        <div class="wrapper">
-            <div class="logo"><a href=''>Boiler O<sub>2</sub> Predictor</a></div>
-            <div class="menu">
-                <ul>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/result">Result</a></li>
-                    <li><a href="/prediction">Prediction</a></li>
-                    <li><a href="/graph">Graph</a></li>
-                    <li><a href="/" class="tbl-biru">Home</a></li>
-                </ul>
+    <nav class="navbar">
+        <div class="content">
+          <div class="logo">
+            <a href="#">Boiler O<sub>2</sub> Predictor</a>
+          </div>
+          <ul class="menu-list">
+            <div class="icon cancel-btn">
+              <i class="fas fa-times"></i>
             </div>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/result">Result</a></li>
+            <li><a href="/prediction">Prediction</a></li>
+            <li><a href="/graph">Dataset</a></li>
+          </ul>
+          <div class="icon menu-btn">
+            <i class="fas fa-bars"></i>
+          </div>
         </div>
     </nav>
-    <div class="wrapper">
-        <!-- untuk Overview -->
-        <section id="Overview">
-            <div class="kolom">
-                <p class="deskripsi"></p>
-                <h2>ANN vs XGBoost</h2>
-                <p>Pada penelitian sebelumnya telah didapatkan model regresi menggunakan jaringan saraf tiruan (ANN) yang mampu melakukan
-                    prediksi kandungan oksigen pada <i>flue gas</i> di boiler PT. Pertamina RU V Balikpapan
-                    dengan satu hidden layer, 60 neuron pada hidden layer, serta dilatih dengan menggunakan
-                    optimizer SGD. Model regresi JST menghasilkan performa paling optimal dengan menggunakan
-                    seluruh fitur, yaitu sebanyak 18 fitur.</p>
-                <p>Dengan menggunakan jumlah fitur dan keadaan yang sama, metode usulan (XGBoost) mendapatkan MAE yang sedikit lebih besar pada saat 
-                    menggunakan <i>default modelnya</i>. Namun, setelah dilakukan hyperparameter tunning, XGBoost jauh lebih baik dibandingkan dengan
-                    metode sebelumnya.</p>
-            </div>
-            <img class="result" src="{{ url_for('static', filename= "images/ann vs xgb.png")}}"/>
-        </section>
-        <!-- untuk home -->
-        <section id="home">
-            <img class="result" src= "{{ url_for('static', filename= "images/feature importance variance based.png")}}" />
-            <div class="kolom">
-                <h2>Feature Selection</h2>
-                <p>Feature Selection adalah langkah yang sangat penting dari setiap project Machine Learning. Terlalu sedikit fitur yang digunakan maka error akan besar sedangkan semakin banyak fitur maka model menjadi lebih kompleks yang membutuhkan waktu lebih lama untuk dilatih, lebih sulit untuk ditafsirkan, dan yang dapat menimbulkan noise yang akan meningkatkan error juga.</p>
-                <p>Pada penelitian ini yang mengunakan XGBoost sebagai model usulan, digunakan random forest regression feature importance pada seleksi fiturnya. Seleksi fitur ini dipilih karena XGBoost sendiri menggunakan Decicion Tree sebagai base model yang mana semain fitur menurunkan <i>impurity</i>, semakin penting fitur tersebut. Pada <i>regression problem</i> pengukuran <i>impurity</i> menggunakan <i>variance</i></p>
-            </div>
-        </section>
-        
+      <div class="banner"></div>
+      <div class="about">
+        <div class="content">
+          <div class="title">Hasil Penelitian</div>
+          <h2>ANN vs XGBoost</h2>
+          <p>Pada penelitian sebelumnya telah didapatkan model regresi menggunakan jaringan saraf tiruan (ANN) yang mampu melakukan
+            prediksi kandungan oksigen pada <i>flue gas</i> di boiler PT. Pertamina RU V Balikpapan
+            dengan satu hidden layer, 60 neuron pada hidden layer, serta dilatih dengan menggunakan
+            optimizer SGD. Model regresi JST menghasilkan performa paling optimal dengan menggunakan
+            seluruh fitur, yaitu sebanyak 18 fitur.</p>
+          <img class="model" src="{{ url_for('static', filename= "images/ann vs xgb.png")}}"/>
+          <p>Dengan menggunakan jumlah fitur dan keadaan yang sama, metode usulan (XGBoost) mendapatkan MAE yang sedikit lebih besar pada saat 
+            menggunakan <i>default modelnya</i>. Namun, setelah dilakukan hyperparameter tunning, XGBoost jauh lebih baik dibandingkan dengan
+            metode sebelumnya.</p>
+
+          <h2>Feature Selection</h2>
+          <p>Feature Selection adalah langkah yang sangat penting dari setiap project Machine Learning. Terlalu sedikit fitur yang digunakan maka error akan besar sedangkan semakin banyak fitur maka model menjadi lebih kompleks yang membutuhkan waktu lebih lama untuk dilatih, lebih sulit untuk ditafsirkan, dan yang dapat menimbulkan noise yang akan meningkatkan error juga.</p>
+          <img class="model" src= "{{ url_for('static', filename= "images/feature importance variance based.png")}}" />
+          <p>Pada penelitian ini yang mengunakan XGBoost sebagai model usulan, digunakan random forest regression feature importance pada seleksi fiturnya. Seleksi fitur ini dipilih karena XGBoost sendiri menggunakan Decicion Tree sebagai base model yang mana semain fitur menurunkan <i>impurity</i>, semakin penting fitur tersebut. Pada <i>regression problem</i> pengukuran <i>impurity</i> menggunakan <i>variance</i></p>
+        </div>
+      </div>
+    
+      <script>
+        const body = document.querySelector("body");
+        const navbar = document.querySelector(".navbar");
+        const menuBtn = document.querySelector(".menu-btn");
+        const cancelBtn = document.querySelector(".cancel-btn");
+        menuBtn.onclick = ()=>{
+          navbar.classList.add("show");
+          menuBtn.classList.add("hide");
+          body.classList.add("disabled");
+        }
+        cancelBtn.onclick = ()=>{
+          body.classList.remove("disabled");
+          navbar.classList.remove("show");
+          menuBtn.classList.remove("hide");
+        }
+        window.onscroll = ()=>{
+          this.scrollY > 20 ? navbar.classList.add("sticky") : navbar.classList.remove("sticky");
+        }
+      </script>
+    <div class="content">
         <!-- untuk XGBoost model -->
         <section id="XGBoost">
             <div class="tengah">
@@ -99,41 +121,60 @@
         </section>
         
 
-    <div id="contact">
-        <div class="wrapper">
-            <div class="footer">
-                <div class="footer-section">
-                    <h3>Tentang</h3>
-                    <p><b>Penelitian Tugas Akhir: </b> <br> Soft Sensor berbasis Xtreme Gradien Boosting untuk prediksi nilai kandungan oksigen dalam flue gas pada boiler PT Pertamina RU V Balikpapan. </p>
-                </div>
-                <div class="footer-section">
-                    <h3>Pembimbing</h3>
-                    <p><b>Pembimbing 1 :</b> <br> Ir. Nazrul Effendy, S. T., M. Eng., Ph.D., IPM</p>
-                    <p><b>Pembimbing 2 :</b> <br> Ir. Agus Arif, M.T.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Alamat</h3>
-                    <p><b>Departemen Teknik Nuklir & Teknik Fisika</b><br>
-                    Fakultas Teknik, Universitas Gadjah Mada<br>
-                    Jl. Grafika 2, Yogyakarta 55281, Indonesia<br>
-                    Phone/Fax: +62-274-580882<br>
-                    Email: dtntf.ft@ugm.ac.id</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Social</h3>
-                    <p><b>LinkedIn: </b> <br> www.linkedin.com/in/eko-david-kurniawan </p>
-                    <p><b>Github: </b> <br> ekodavidkurnia</p>
-                    <p>ekodavidkurnia@gmail.com</p>
-                </div>
+    <footer>
+      <div class="main-content">
+        <div class="left box">
+          <h2>Tentang</h2>
+          <div class="content">
+            <p><b>Penelitian Tugas Akhir: </b> <br> Soft Sensor berbasis Xtreme Gradien Boosting untuk prediksi nilai kandungan oksigen dalam flue gas pada boiler PT Pertamina RU V Balikpapan. </p>
+            <div class="social">
+              <a href="https://www.linkedin.com/in/eko-david-kurniawan"><span class="fab fa-linkedin"></span></a>
+              <a href="https://github.com/ekodavidkurnia"><span class="fab fa-github-square"></span></a>
+              <a href="https://www.instagram.com/edavidkurnia/"><span class="fab fa-instagram"></span></a>
+              <a href="#"><span class="fab fa-youtube"></span></a>
             </div>
+          </div>
         </div>
-    </div>
 
-    <div id="copyright">
-        <div class="wrapper">
-            &copy; 2021. <b>Eko David Kurniawan</b>
+        <div class="center box">
+          <h2>Alamat</h2>
+          <div class="content">
+            <div class="place">
+              <span class="fas fa-map-marker-alt"></span>
+              <span class="text"><b>Departemen Teknik Nuklir & Teknik Fisika</b><br>
+                Fakultas Teknik, Universitas Gadjah Mada<br>
+                Jl. Grafika 2, Yogyakarta 55281, Indonesia</span>
+            </div>
+            <div class="phone">
+              <span class="fas fa-phone-alt"></span>
+              <span class="text">+62-274-580882</span>
+            </div>
+            <div class="email">
+              <span class="fas fa-envelope"></span>
+              <span class="text">dtntf.ft@ugm.ac.id</span>
+            </div>
+          </div>
         </div>
-    </div>
+
+        <div class="right box">
+          <h2>Pembimbing</h2>
+          <div class="content">
+            <div class="place">
+              <span class="text"><b>Pembimbing 1 :</b> <br> Ir. Nazrul Effendy, S. T., M. Eng., Ph.D., IPM</span>
+            </div>
+            <div class="phone">
+              <span class="text"><b>Pembimbing 2 :</b> <br> Ir. Agus Arif, M.T.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <center>
+          <span class="credit">Created By <a href="www.linkedin.com/in/eko-david-kurniawan">Eko David Kurniawan</a> | </span>
+          <span class="far fa-copyright"></span><span> 2021 All rights reserved.</span>
+        </center>
+      </div>
+    </footer>
     
     
 </body>
